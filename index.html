@@ -3,7 +3,27 @@
   <head>
     <meta charset="utf-8">
   </head>
+  <style>
+    body {
+      background: black;
+      color: white;
+    }
+  </style>
   <body>
-    Money $$$
+    <h1>Current Share Price: BTC </h1>
+    <div class="the-price" id="price">$0.00</div>
+    <script>
+      var request = require('request');
+      request("http://www.google.com/finance/info?infotype=infoquoteall&q=CURRENCY:BTCUSD", function(error, response, body) {
+        body = body.slice(3);
+        body = JSON.parse(body);
+        console.log(body);
+        newPrice(body);
+      });
+      function newPrice(arr) {
+        currentPrice = arr[0]["l"];
+        document.getElementById("price").innerHTML = currentPrice;
+      }
+    </script>
   </body>
 </html>
